@@ -6,7 +6,7 @@ include build/$(ARCH).mk
 SYSROOT = ./root
 
 # Compiler
-CC = ${TARGET}-gcc --sysroot=$(SYSROOT) -isystem=$(SYSROOT)/usr/include
+CC = ${TARGET}-gcc --sysroot=$(SYSROOT) -isystem $(SYSROOT)/usr/include
 AS = ${TARGET}-as
 AR = ${TARGET}-ar
 
