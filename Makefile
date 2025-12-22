@@ -13,6 +13,7 @@ BOOTLOADER_OBJS = $(patsubst %.c,%.k.o,$(BOOTLOADER_SRCS))
 
 KERNEL_SRCS = $(wildcard kernel/src/*.c)
 KERNEL_SRCS += $(wildcard kernel/src/*/*.c)
+KERNEL_SRCS += $(wildcard kernel/src/arch/$(ARCH)/*.c)
 
 KERNEL_OBJS = $(patsubst %.c,%.k.o,$(KERNEL_SRCS))
 
@@ -23,7 +24,7 @@ LIBC_OBJS = $(patsubst %.c,%.o,$(LIBC_SRCS))
 
 LIBK_OBJS = $(patsubst %.c,%.k.o,$(LIBC_SRCS))
 
-KERNEL_CFLAGS  = -ffreestanding -O2 -std=gnu11 -g -static -isystem=root/usr/include
+KERNEL_CFLAGS  = -ffreestanding -O2 -std=gnu11 -g -static -isystem root/usr/include
 KERNEL_CFLAGS += -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -Wstrict-prototypes
 KERNEL_CFLAGS += -pedantic -Wwrite-strings $(ARCH_KERNEL_CFLAGS)
 KERNEL_CFLAGS += -D__KERNEL -DKERNEL_ARCH=$(ARCH)
@@ -36,7 +37,7 @@ boot: install-headers $(BOOTLOADER_OBJS)
 kernel: boot libk $(KERNEL_OBJS)
 	@echo 'Building kernel...'
 
-libc: install-headers $(LIBC_OBJS)
+libc: install-headers# $(LIBC_OBJS)
 	@echo 'Building libc...'
 
 libk: install-headers $(LIBK_OBJS)

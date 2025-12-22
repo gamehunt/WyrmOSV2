@@ -8,6 +8,6 @@ make
 On the next builds
 
 ```bash
-./toolchain/activate.sh
+source ./toolchain/activate.sh
 make
 ```
