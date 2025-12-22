@@ -2,6 +2,7 @@
 cd toolchain
 ./build_toolchain.sh
 cd ..
+source ./toolchain/activate.sh
 make
 ```
 
