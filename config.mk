@@ -1,0 +1,2 @@
+ARCH=x86_64
+TARGET=x86_64-elf
