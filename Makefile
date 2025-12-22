@@ -1,7 +1,7 @@
 include config.mk
 include build/$(ARCH).mk
 
-.PHONY: all install-headers boot kernel libc libs clean
+.PHONY: all run install-headers boot kernel libc libs clean
 
 # Compiler
 CC = ${TARGET}-gcc
@@ -12,14 +12,18 @@ BOOTLOADER_SRCS = $(wildcard boot/src/*.c)
 BOOTLOADER_OBJS = $(patsubst %.c,%.k.o,$(BOOTLOADER_SRCS))
 
 KERNEL_SRCS = $(wildcard kernel/src/*.c)
+KERNEL_SRCS += $(wildcard kernel/src/*/*.c)
+
 KERNEL_OBJS = $(patsubst %.c,%.k.o,$(KERNEL_SRCS))
 
 LIBC_SRCS = $(wildcard libc/src/*.c)
+LIBC_SRCS += $(wildcard libc/src/*/*.c)
+
 LIBC_OBJS = $(patsubst %.c,%.o,$(LIBC_SRCS))
 
 LIBK_OBJS = $(patsubst %.c,%.k.o,$(LIBC_SRCS))
 
-KERNEL_CFLAGS  = -ffreestanding -O2 -std=gnu11 -g -static
+KERNEL_CFLAGS  = -ffreestanding -O2 -std=gnu11 -g -static -isystem=root/usr/include
 KERNEL_CFLAGS += -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -Wstrict-prototypes
 KERNEL_CFLAGS += -pedantic -Wwrite-strings $(ARCH_KERNEL_CFLAGS)
 KERNEL_CFLAGS += -D__KERNEL -DKERNEL_ARCH=$(ARCH)
@@ -59,3 +63,6 @@ clean:
 	-@rm -rf $(KERNEL_OBJS)
 	-@rm -rf $(LIBK_OBJS)
 	-@rm -rf $(LIBC_OBJS)
+
+run: kernel
+	@echo 'Running...'

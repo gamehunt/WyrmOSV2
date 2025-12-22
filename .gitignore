@@ -1,3 +1,6 @@
 *.o
 root/*
 !root/.gitkeep
+toolchain/*
+!toolchain/*.sh
+!toolchain/t-x86_64-elf
