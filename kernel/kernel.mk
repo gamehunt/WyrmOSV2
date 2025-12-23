@@ -15,7 +15,7 @@ KERNEL_CFLAGS += -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -Wstri
 KERNEL_CFLAGS += -pedantic -Wwrite-strings $(ARCH_KERNEL_CFLAGS)
 KERNEL_CFLAGS += -D__KERNEL -DKERNEL_ARCH=$(ARCH)
 
-kernel: wyrm.bin
+kernel: install-kernel
 wyrm.bin: boot libk $(KERNEL_OBJS) $(KERNEL_LINK_SCRIPT)
 	@echo 'Building kernel...'
 	@$(CC) -T $(KERNEL_LINK_SCRIPT) -o kernel/$@ $(KERNEL_CFLAGS) $(KERNEL_OBJS) -nostdlib -lk -lgcc
@@ -25,6 +25,10 @@ wyrm.bin: boot libk $(KERNEL_OBJS) $(KERNEL_LINK_SCRIPT)
 
 %.k.o: %.S
 	@$(CC) -c $< -o $@
+
+install-kernel: wyrm.bin
+	@mkdir -p $(SYSROOT)/boot
+	@cp kernel/wyrm.bin $(SYSROOT)/boot
 
 clean-kernel:
 	-@rm -rf $(KERNEL_OBJS)

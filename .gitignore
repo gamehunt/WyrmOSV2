@@ -6,3 +6,5 @@ toolchain/*
 !toolchain/t-x86_64-elf
 *.bin
 *.a
+disk.img
+mnt

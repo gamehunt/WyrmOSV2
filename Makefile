@@ -9,9 +9,11 @@ CC = ${TARGET}-gcc --sysroot=$(SYSROOT) -isystem $(SYSROOT)/usr/include
 AS = ${TARGET}-as
 AR = ${TARGET}-ar
 
-all: boot kernel #libc
+all: system
 
-# Provides arch-specific stuff
+system: boot kernel #libc
+
+# Provides arch-specific stuff and run command
 include build/$(ARCH).mk
 
 # Provides boot target
@@ -34,6 +36,3 @@ install-headers:
 	@rsync -a --delete ./kernel/include/ $(SYSROOT)/usr/include/kernel/
 
 clean: clean-boot clean-kernel clean-libc
-
-run: kernel
-	@echo 'Running...'
