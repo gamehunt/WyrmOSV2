@@ -9,3 +9,4 @@ toolchain/*
 disk.img
 mnt
 compile_commands.*
+.cache
