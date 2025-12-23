@@ -8,3 +8,4 @@ toolchain/*
 *.a
 disk.img
 mnt
+compile_commands.*

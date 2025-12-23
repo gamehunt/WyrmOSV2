@@ -9,12 +9,12 @@ LIBK_CFLAGS += -Wall -Wextra -Wno-unused-function -Wno-unused-parameter -Wstrict
 LIBK_CFLAGS += -pedantic -Wwrite-strings $(ARCH_KERNEL_CFLAGS)
 LIBK_CFLAGS += -D__KERNEL -DKERNEL_ARCH=$(ARCH)
 
-libc: install-headers# $(LIBC_OBJS)
+libc: headers# $(LIBC_OBJS)
 	@echo 'Building libc...'
 
 libk: libk.a install-libk
 
-libk.a: install-headers $(LIBK_OBJS)
+libk.a: headers $(LIBK_OBJS)
 	@echo 'Building libk...'
 	@$(AR) rcs libc/$@ $(LIBK_OBJS)
 

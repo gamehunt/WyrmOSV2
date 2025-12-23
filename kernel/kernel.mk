@@ -16,7 +16,7 @@ KERNEL_CFLAGS += -pedantic -Wwrite-strings $(ARCH_KERNEL_CFLAGS)
 KERNEL_CFLAGS += -D__KERNEL -DKERNEL_ARCH=$(ARCH)
 
 kernel: install-kernel
-wyrm.bin: boot libk $(KERNEL_OBJS) $(KERNEL_LINK_SCRIPT)
+wyrm.bin: headers libk $(KERNEL_OBJS) $(KERNEL_LINK_SCRIPT)
 	@echo 'Building kernel...'
 	@$(CC) -T $(KERNEL_LINK_SCRIPT) -o kernel/$@ $(KERNEL_CFLAGS) $(KERNEL_OBJS) -nostdlib -lk -lgcc
 

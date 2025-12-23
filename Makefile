@@ -9,9 +9,16 @@ CC = ${TARGET}-gcc --sysroot=$(SYSROOT) -isystem $(SYSROOT)/usr/include
 AS = ${TARGET}-as
 AR = ${TARGET}-ar
 
-all: system
+all: compile-db system
 
-system: boot kernel #libc
+compile-db:
+ifndef DONT_EXPORT
+	bash util/make_compile_db.sh	
+endif
+
+system-except-bootloader: kernel #libc
+
+system: boot system-except-bootloader
 
 # Provides arch-specific stuff and run command
 include build/$(ARCH).mk
@@ -26,7 +33,7 @@ include libc/libc.mk
 include kernel/kernel.mk
 
 # Installs all target headers to sysroot
-install-headers:
+headers:
 	@echo 'Installing headers to root...'
 
 	@mkdir -p root/usr/include

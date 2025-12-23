@@ -1,6 +1,6 @@
 boot: install-boot
 
-hatch.efi: install-headers
+hatch.efi: headers
 	$(MAKE) -C boot
 
 install-boot: hatch.efi
